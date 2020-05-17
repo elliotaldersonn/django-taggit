@@ -1,0 +1,49 @@
+	{% extends 'base.html' %}
+{% block title %}list view</title>{% endblock %}
+
+
+	{% block content %}
+	
+	<div class="m-4">
+	<h1>List view:</h1>
+	<hr>
+	<p>Common Tags: 
+            {% for mt in common_tags %}
+                <a href="{% url 'tagged' mt.slug %}" class="badge badge-success">{{mt}}</a>
+            {% endfor %}
+            </p>
+	<hr>
+	{% for i in page_obj %}
+	<h3> <a href="{% url 'detail' i.slug %}">{{ i.name }}</a></h3>
+
+<div style="display:flex">
+        {% for qq in i.tags.all %}
+        <a href="{% url 'tagged' qq.slug %}" class="mr-1 badge badge-info">#{{ qq }}</a>
+        {% endfor %}
+ </div>
+
+
+	{% if i.img %}
+	<img src="{{ i.img.url }}" alt="">
+	{% endif %}
+	<p>{{ i.msg }}</p>
+	<a href="{% url 'edit' i.slug %}">edit</a> | <a href="{% url 'delete' i.slug %}">delete</a>
+	<hr>
+	{% endfor %}
+
+
+	<ul class="pagination justify-content-center">
+	{% for i in paginator.page_range %} 
+
+	
+    <li  class=" page-item {% if i == page_number %} active {% endif %}">
+        <span><a class=" page-link" href="?page={{ i }}">{{i}}</a></span>
+    </li>
+    
+ 
+
+	{% endfor %}
+	 </ul>
+</div>
+	
+	{% endblock content %}

@@ -1,0 +1,24 @@
+		{% extends 'base.html' %}
+{% block title %}detail 	{% endblock %}
+
+	{% block content %}
+
+	Detail view:
+
+	<hr>
+		<a href="{% url 'list' %}">home</a> | <a href="{% url 'edit' obj.slug %}">edit</a> | <a href="{% url 'delete' obj.slug %}">delete</a>
+
+	<hr>
+	<h3>{{ obj.name }}</h3>
+
+	<div style="display:flex">
+        {% for qq in obj.tags.all %}
+        <a href="{% url 'tagged' qq.slug %}" class="mr-1 badge badge-info">#{{ qq }}</a>
+        {% endfor %}
+ </div>
+	{% if obj.img %}
+	<img src="{{ obj.img.url }}" alt="">
+	{% endif %}
+	<p>{{ obj.msg }}</p>
+	<hr>
+{% endblock %}
