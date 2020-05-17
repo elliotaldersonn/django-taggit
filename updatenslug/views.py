@@ -77,6 +77,7 @@ def update_view(request,slug):
 		form = CreateForm(request.POST,request.FILES , instance=obj)
 		if form.is_valid():
 			form.save()
+			form.save_m2m()
 			return redirect(detail_view , slug=slug)
 	else:
 		form = CreateForm(instance=obj)
